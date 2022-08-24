@@ -1,19 +1,30 @@
-/* Nav focus progress */
-var navBtns = document.querySelectorAll('#pc-nav ul li');
-var navFocus = document.querySelector('.nav-focus');
-var currentNav = 0;
+// Course
+var courseList = document.querySelectorAll('.course');
+var courseInfo = document.querySelector('.course-info');
+var courseInfoList = document.querySelectorAll('.course-info-list ul');
+var hideBorder = document.querySelector('.hide-border');
+function changeCourse(index) {
+    document.querySelector('.course-active').classList.remove('course-active');
+    courseList[index].classList.add('course-active');
+    courseInfo.setAttribute('style','border-top-left-radius: 20px;');
+    courseInfo.setAttribute('style','border-bottom-left-radius: 20px;');
+    if(index == 0){
+        courseInfo.setAttribute('style','border-top-left-radius: 0px;');
+    }
+    if(index == courseList.length - 1) {
+        courseInfo.setAttribute('style','border-bottom-left-radius: 0px;');
+    }
 
-console.log([navBtns[0]]);
+    hideBorder.setAttribute('style',`top:${courseList[index].offsetTop}px`);
 
-function changeCurrentNav(left, width) {
-    navFocus.style.left = `${left}px`;
-    navFocus.style.width = `${width}px`;
+    document.querySelector('.course-info-list .show').classList.remove("show");
+    courseInfoList[index].classList.add('show');
 }
 
-changeCurrentNav(navBtns[0].offsetLeft, navBtns[0].offsetWidth);
+changeCourse(0);
 
-navBtns.forEach( (navBtn) => {
-    navBtn.addEventListener('click', (e) => {
-        changeCurrentNav(navBtn.offsetLeft, navBtn.offsetWidth);
+courseList.forEach( (course, index) => {
+    course.addEventListener('click', (e)=> {
+        changeCourse(index);
     });
 });
